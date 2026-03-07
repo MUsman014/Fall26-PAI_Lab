@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Face Profiling App</title>
+    <style>
+        /* General Styles */
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: #f0f0f0;
+        }
+        
+        h1 {
+            color: #ffffff;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+        /* Input & Button */
+        
+        input[type="file"] {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            background-color: #2c3e50;
+            color: #f0f0f0;
+            cursor: pointer;
+        }
+        
+        button {
+            padding: 12px 25px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        /* Result container */
+        
+        #result {
+            margin-top: 30px;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        #profile {
+            font-size: 1.3em;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        #resultImage {
+            max-width: 400px;
+            border-radius: 15px;
+            border: 3px solid #3498db;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+        /* Responsive adjustments */
+        
+        @media (max-width: 500px) {
+            #resultImage {
+                max-width: 90%;
+            }
+            button,
+            input[type="file"] {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Face Profiling App</h1>
+
+    <input type="file" id="imageInput" accept="image/*">
+    <br>
+    <button onclick="uploadImage()">Upload & Detect</button>
+
+    <div id="result">
+        <p id="profile"></p>
+        <img id="resultImage" src="" alt="">
+    </div>
+
+    <script>
+        async function uploadImage() {
+            const input = document.getElementById('imageInput');
+            if (input.files.length === 0) {
+                alert("Please select an image!");
+                return;
+            }
+
+            const file = input.files[0];
+            const formData = new FormData();
+            formData.append("image", file);
+
+            document.getElementById('profile').innerHTML = "Detecting...";
+            document.getElementById('resultImage').style.display = "none";
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.error) {
+                    document.getElementById('profile').innerHTML = data.error;
+                    return;
+                }
+
+                document.getElementById('profile').innerHTML = data.profile;
+                const img = document.getElementById('resultImage');
+                img.src = data.image + "?t=" + new Date().getTime();
+                img.style.display = "block";
+            } catch (err) {
+                document.getElementById('profile').innerHTML = "Error detecting face.";
+            }
+        }
+    </script>
+</body>
+
+</html>
