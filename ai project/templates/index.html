@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CaseCraft AI - Courtroom Simulator</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #eef2f7, #e6edf5);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Center Card */
+        .container {
+            width: 52%;
+            margin: 90px auto;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 45px;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            text-align: center;
+            border-top: 5px solid #0f2a4d;
+        }
+
+        /* Title */
+        h1 {
+            color: #0f2a4d;
+            margin-bottom: 10px;
+            font-size: 34px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Subtitle */
+        p {
+            color: #5a6b7d;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        /* Tag */
+        .tag {
+            display: inline-block;
+            background: #0f2a4d;
+            color: #fff;
+            padding: 7px 14px;
+            border-radius: 25px;
+            font-size: 12px;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Input box */
+        textarea {
+            width: 94%;
+            height: 180px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #cfd6e4;
+            font-size: 15px;
+            outline: none;
+            background: #f9fbfd;
+            transition: 0.3s ease;
+            resize: none;
+        }
+
+        textarea:focus {
+            border-color: #0f2a4d;
+            box-shadow: 0 0 12px rgba(15, 42, 77, 0.25);
+            background: #fff;
+        }
+
+        /* Button */
+        button {
+            margin-top: 18px;
+            padding: 13px 28px;
+            background: linear-gradient(135deg, #0f2a4d, #1f4e79);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.06);
+            background: linear-gradient(135deg, #163b6a, #2c5f8f);
+        }
+
+        /* small footer text */
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #8a99a8;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="tag">⚖ AI COURTROOM SYSTEM</div>
+
+    <h1>CaseCraft AI</h1>
+
+    <p>Enter a legal case and get AI-generated prosecution, defense & verdict analysis</p>
+
+    <form action="/submit" method="POST">
+        <textarea name="case" placeholder="Describe your legal case in detail..." required></textarea>
+        <br>
+        <button type="submit">⚖ Generate AI Verdict</button>
+    </form>
+
+    <div class="footer">
+        Powered by Flask • AI Simulation Engine
+    </div>
+
+</div>
+
+</body>
+</html>
